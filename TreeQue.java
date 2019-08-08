@@ -116,7 +116,7 @@ public class TreeQue {
         }
         System.out.println("\n\nSize:-"+count);
     }
-    
+    //Max depth or height
     void heightOfTree(Node root){
         int height=0;
         Queue<Node> q1 = new LinkedList<>();
@@ -161,13 +161,32 @@ public class TreeQue {
         head.right.left = new Node(15);
         head.right.right = new Node(8);
         TreeQue que = new TreeQue();
-        que.printInorder(head);
-        /*head = que.findLastNode(11, head);
+        /*que.printInorder(head);
+        head = que.findLastNode(11, head);
         System.out.println("\n\n");
-        que.printInorder(head);*/
+        que.printInorder(head);
         System.out.print("\n\nLevel order\n");
         que.levelOrderTraversel(head);
         que.sizeOfTree(head);
         que.heightOfTree(head);
+        
+        TreeMore more = new TreeMore();
+        System.out.println("\nBoundry level");
+        more.boundryTraversal(head);
+        System.out.println("\nZigZag level");
+        more.zigzagSpiralTraversal(head);
+        System.out.println("\nmirror imsage");
+        more.mirrorImage(head);
+        System.out.println("\ncheck mirror imsage");*/
+        TreeMore more = new TreeMore();
+        Node head2 = new Node(1);
+        head2.left = new Node(2);
+        head2.right = new Node(2);
+        head2.left.right = new Node(3);
+        head2.right.right = new Node(3);
+        if(head2.left!=null && head2.right!=null)
+            more.checkMirror(head2.left,head2.right);
+        else
+            System.out.println("Mirror");
     }
 }
