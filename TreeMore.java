@@ -132,4 +132,88 @@ public class TreeMore {
         else
             System.out.println("Not mirror");
     }
+    //foldable tree
+    //a tree is foldable when tree is structure wise mirror 
+    void foldable(Node root1,Node root2){
+        Node temp1;
+        Node temp2;
+        Queue<Node> q1 = new LinkedList<>();
+        Queue<Node> q2 = new LinkedList<>();
+        q1.add(root1);
+        q2.add(root2);
+        boolean flag=true;
+        while(!q1.isEmpty() && !q2.isEmpty()){
+            temp1=q1.poll();
+            temp2=q2.poll();
+            if(temp1.left==null && temp2.right!=null){
+                flag=false;
+                break;
+            }
+            else if(temp1.right==null && temp2.left!=null){
+                flag=false;
+                break;
+            }
+            else if(temp1.left!=null && temp2.right==null){
+                flag=false;
+                break;
+            }
+            else if(temp1.right!=null && temp2.left==null){
+                flag=false;
+                break;
+            }
+        }
+        if(flag)
+            System.out.println("Foldable");
+        else
+            System.out.println("Not Foldable");
+    }
+    //check Continuous tree
+    //a tree is continuous when diff btwn two adjacent keys is 1
+    boolean check(int key1,int key2,int key3){
+        //System.out.println(Math.abs(key1-key2)+" "+Math.abs(key3-key1));
+        return Math.abs(key1-key2)==1 && Math.abs(key3-key1)==1;
+    }
+    boolean check(int key1,int key2){
+        //System.out.println(Math.abs(key2-key1));
+        return Math.abs(key2-key1)==1;
+    }
+    void checkContinuous(Node root){
+        Queue<Node> q1 = new LinkedList<>();
+        Node temp;
+        q1.add(root);
+        boolean flag=true;
+        while(!q1.isEmpty()){
+            temp=q1.poll();
+            if(temp.left!=null)
+                q1.add(temp.left);
+            if(temp.right!=null)
+                q1.add(temp.right);
+            System.out.println(temp.data);
+            if(temp.left!=null && temp.right!=null){
+                //System.out.println("if:-"+temp.data+" "+temp.left.data+" "+temp.right.data);
+                if(!check(temp.data, temp.left.data, temp.right.data)){
+                    System.out.println("Not con");
+                    flag=false;
+                    break;
+                }
+            }
+            else if(temp.left!=null && temp.right==null){
+                    //System.out.println("else if:-"+temp.data+" "+temp.left.data);
+                    if(!check(temp.data, temp.left.data)){
+                        System.out.println("Not con");
+                        flag=false;
+                        break;
+                    }
+            }
+            else if(temp.right!=null && temp.left==null){
+                if(!check(temp.data,temp.right.data)){
+                    System.out.println("Not con2");
+                    flag=false;
+                    break;
+                }
+            }
+        }
+        if(flag)
+            System.out.println("con");
+    }
 }
