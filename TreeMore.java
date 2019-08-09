@@ -216,4 +216,21 @@ public class TreeMore {
         if(flag)
             System.out.println("con");
     }
+    
+    void diagonalTraversal(Node root){
+        Queue<Node> q1 = new LinkedList<>();
+        q1.add(root);
+        Node temp;
+        while(!q1.isEmpty()){
+            temp = q1.poll();
+            System.out.print(temp.data+" ");
+            while(temp!=null){
+                if(temp.left!=null)
+                    q1.add(temp.left);
+                if(temp.right!=null)
+                    System.out.print(temp.right.data+" ");
+                temp=temp.right;
+            }
+        }
+    }
 }
