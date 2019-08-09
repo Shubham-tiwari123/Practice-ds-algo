@@ -161,7 +161,7 @@ public class TreeQue {
         head.right.left = new Node(15);
         head.right.right = new Node(8);
         TreeQue que = new TreeQue();
-        que.printInorder(head);
+        /*que.printInorder(head);
         head = que.findLastNode(11, head);
         System.out.println("\n\n");
         que.printInorder(head);
@@ -178,8 +178,7 @@ public class TreeQue {
         System.out.println("\nmirror imsage");
         more.mirrorImage(head);
         System.out.println("\ncheck mirror imsage");
-        
-        //TreeMore more = new TreeMore();
+        TreeMore more = new TreeMore();
         Node head2 = new Node(1);
         head2.left = new Node(2);
         head2.right = new Node(2);
@@ -189,7 +188,7 @@ public class TreeQue {
             more.checkMirror(head2.left,head2.right);
         else
             System.out.println("Mirror");
-        //TreeMore more = new TreeMore();
+        TreeMore more = new TreeMore();
         Node head2 = new Node(10);
         head2.left = new Node(7);
         head2.right = new Node(15);
@@ -198,7 +197,7 @@ public class TreeQue {
         if(head2.left!=null && head2.right!=null)
             more.foldable(head2.left,head2.right);
         
-        //TreeMore more = new TreeMore();
+        TreeMore more = new TreeMore();
         Node head2 = new Node(7);
         head2.left = new Node(5);
         head2.right = new Node(8);
@@ -206,8 +205,21 @@ public class TreeQue {
         head2.left.right = new Node(4);
         head2.right.right = new Node(10);
         if(head2.left!=null && head2.right!=null)
-            more.checkContinuous(head2);
+            more.checkContinuous(head2);*/
         
+        TreeMore more = new TreeMore();
+        Node head2 = new Node(8);
+        head2.left = new Node(3);
+        head2.right = new Node(10);
+        head2.left.left = new Node(1);
+        head2.right.left = new Node(6);
+        head2.right.right = new Node(14);
+        head2.right.left.left = new Node(4);
+        head2.right.left.right = new Node(7);
+        head2.right.right.left = new Node(13);
+        
+        if(head2.left!=null && head2.right!=null)
+            more.diagonalTraversal(head2);
         
     }
 }
