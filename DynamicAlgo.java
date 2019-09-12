@@ -1,6 +1,6 @@
 package socketpro;
 
-public class StringClass {
+public class DynamicAlgo {
     
     public void longestPalindromeSubstring(String input){
         int strLen = input.length();
@@ -54,4 +54,25 @@ public class StringClass {
         System.out.println("Total palindrome substring:-"+totalPalindrome);
     }
     
+    public void longestPalindromeSubsequce(String input){
+        int strLen = input.length();
+        int table[][]= new int[strLen][strLen];
+        for(int i=0;i<strLen;i++)
+            table[i][i]=1;
+        
+        for(int k=2;k<=strLen;k++){
+            for(int i=0;i<strLen-k+1;i++){
+                int j= i+k-1;
+                if(input.charAt(i)==input.charAt(j) && k==2){
+                    table[i][j]=2;
+                }else if(input.charAt(i)==input.charAt(j)){
+                    table[i][j]=table[i+1][j-1]+2;
+                }
+                else{
+                    table[i][j]= Integer.max(table[i][j-1],table[i+1][j]);
+                }
+            }
+        }
+        System.out.println("max:-"+table[0][strLen-1]);
+    }
 }
