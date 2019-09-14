@@ -1,5 +1,7 @@
 package socketpro;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 class Node{
@@ -11,11 +13,10 @@ public class AmazonQues {
     Node headA=null;
     Node headB=null;
     void addNode(){
-        
         Node newNode;
-        for(int i=0;i<5;i++){
+        for(int i=0;i<4;i++){
             newNode = new Node();
-            newNode.data = i;
+            newNode.data = 1;
             newNode.next=null;
             
             if(head==null)
@@ -28,14 +29,18 @@ public class AmazonQues {
                 temp.next=newNode;
             }
         }
+        head.next.data=1;
+        head.next.next.data=1;
+        head.next.next.next.data=3;
         System.out.println("Print List");
         Node temp=head;
         while(temp!=null){
             System.out.print(temp.data+" ");
             temp = temp.next;
         }
-        temp = head.next.next;
-        deleteWithoutHeadPointer(temp);
+        removeDuplicate(head);
+        //temp = head.next.next;
+        //deleteWithoutHeadPointer(temp);
     }
     
     void deleteWithoutHeadPointer(Node temp){
@@ -110,6 +115,100 @@ public class AmazonQues {
         YshapedList(headA, headB);
     }
     
+    void YshapedList(Node headA,Node headB){
+        Node tempA=headA;
+        Node tempB=headB;
+        int count1=0;
+        int count2=0;
+        while(tempA!=null || tempB!=null){
+            if(tempA!=null){
+                count1++;
+                tempA=tempA.next;
+            }
+            if(tempB!=null){
+                count2++;
+                tempB=tempB.next;
+            }
+        }
+        if(count1>count2){
+            int diff= count1-count2;
+            tempA=headA;
+            tempB=headB;
+            for(int i=0;i<diff;i++)
+                tempA=tempA.next;
+            while(tempA!=tempB){
+                if(tempA.next!=tempB.next){
+                    tempA = tempA.next;
+                    tempB = tempB.next;
+                }
+                else{
+                    System.out.println("Found:-"+tempA.next.data+" tempB:-"+tempB.next.data);
+                    break;
+                }
+            }
+        }
+        else if(count2>count1){
+            System.out.println("elif");
+            int diff= count2-count1;
+            tempA=headA;
+            tempB=headB;
+            for(int i=0;i<diff;i++)
+                tempB=tempB.next;
+            while(tempA!=tempB){
+                if(tempA.next!=tempB.next){
+                    tempA = tempA.next;
+                    tempB = tempB.next;
+                }
+                else{
+                    System.out.println("Found:-"+tempA.next.data+" tempB:-"+tempB.next.data);
+                    break;
+                }
+            }
+        }
+        else{
+            tempA=headA;
+            tempB=headB;
+            while(tempA!=tempB){
+                if(tempA.next!=tempB.next){
+                    tempA = tempA.next;
+                    tempB = tempB.next;
+                }
+                else{
+                    System.out.println("Found:-"+tempA.next.data+" tempB:-"+tempB.next.data);
+                    break;
+                }
+            }
+        }       
+    }
     
+    void removeDuplicate(Node root){
+        Node temp1 = root;
+        Node temp2 = temp1.next;
+        while(temp2!=null){
+            if(temp1.data!=temp2.data){
+                temp1.next=temp2;
+                temp1 = temp2;
+                temp2=temp2.next;
+            }
+            else{
+                temp2 = temp2.next;
+                temp1.next=temp2;
+            }
+        }
+        System.out.println("\nPrint List2");
+        Node temp=root;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+    }
     
+    void countPairs(LinkedList<Integer> head1,LinkedList<Integer> head2 , int x){
+        int count=0;
+        for(int i=0;i<head1.size();i++){
+            if(head2.contains(x-head1.get(i)))
+                count++;
+        }
+        System.out.println("count:-"+count);
+    }
 }
