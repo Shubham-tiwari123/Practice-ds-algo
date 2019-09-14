@@ -85,11 +85,15 @@ public class TreeMore {
         mirror.add(root);
         while(!mirror.isEmpty()){
             temp=mirror.poll();
-            System.out.print(temp.data+" ");
-            if(temp.right!=null)
-                mirror.add(temp.right);
-            if(temp.left!=null)
-                mirror.add(temp.left);
+            Node newNode = temp.left; 
+            temp.left = temp.right; 
+            temp.right = newNode;
+            
+            if (temp.left != null) 
+                mirror.add(temp.left); 
+            if (temp.right != null) 
+                mirror.add(temp.right); 
+
         }
     }
     //check if tree is mirror of itself
@@ -232,5 +236,65 @@ public class TreeMore {
                 temp=temp.right;
             }
         }
+    }
+    
+    void sumOfLeafNodes(Node root){
+        int sum=0;
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            Node temp = q.poll();
+            if(temp.left!=null)
+                q.add(temp.left);
+            if(temp.right!=null)
+                q.add(temp.right);
+            if(temp.left==null && temp.right==null)
+                sum = sum+temp.data;
+        }
+        System.out.println(sum);
+    }
+    
+    Queue<Integer> q = new LinkedList<>();
+    void performInorder(Node temp){
+        if(temp==null)
+            return;
+        performInorder(temp.left);
+        q.add(temp.data);
+        performInorder(temp.right);
+    }
+    void convertTreeToCDLL(Node root){
+        performInorder(root);
+        Node head=null;
+        while(!q.isEmpty()){
+            Node newNode = new Node(q.poll());
+            if(head==null){
+                head=newNode;
+                head.right=head;
+                head.left=head;
+            }
+            else{
+                Node temp = head;
+                while(temp.right!=head)
+                    temp=temp.right;
+                
+                temp.right=newNode;
+                newNode.left=temp;
+                head.left=newNode;
+                newNode.right=head;
+            }
+        }
+        
+        Node temp=head;
+        while(temp.right!=head){
+            System.out.print(temp.data+" ");
+            temp=temp.right;
+        }
+        System.out.println(temp.data);
+        temp=head.left;
+        while(temp!=head){
+            System.out.print(temp.data+" ");
+            temp=temp.left;
+        }
+        System.out.println(temp.data);
     }
 }
