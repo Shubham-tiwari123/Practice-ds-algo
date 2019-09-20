@@ -344,4 +344,73 @@ public class BinaryTree {
         }
         
     }
+    
+    TreeNode mirrorTree(TreeNode root){
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        TreeNode temp = null;
+        while(!q.isEmpty()){
+            temp = q.poll();
+            TreeNode newNode = temp.left;
+            temp.left=temp.right;
+            temp.right=newNode;
+            if (temp.left != null) 
+                q.add(temp.left); 
+            if (temp.right != null) 
+                q.add(temp.right); 
+                
+        }
+        return temp;
+    }
+    
+    void checkMirror(TreeNode root1,TreeNode root2){
+        Queue<TreeNode> q1 = new LinkedList<>();
+        Queue<TreeNode> q2 = new LinkedList<>();
+        q1.add(root1);
+        q2.add(root2);
+        boolean flag = true;
+        while(!q1.isEmpty() && !q2.isEmpty()){
+            TreeNode temp1 = q1.poll();
+            TreeNode temp2 = q2.poll();
+            if(temp1.data!=temp2.data){
+                flag=false;
+                break;
+            }
+            if (temp1.right != null && temp2.left!=null){ 
+                q1.add(temp1.right); 
+                q2.add(temp2.left);
+            }
+            if (temp1.left != null && temp2.right!=null){ 
+                q1.add(temp1.left); 
+                q2.add(temp2.right);
+            }
+                
+        }
+        if(flag)
+            System.out.print("\nMirror Tree");
+        else
+            System.out.print("\nNot mirror tree");
+    }
+    
+    void printAccestor(TreeNode root,int val){
+        Stack<TreeNode> s = new Stack<>();
+        HashMap<TreeNode,TreeNode> parent = new HashMap<>();
+        s.push(root);
+        parent.put(root, null);
+        while(!s.isEmpty()){
+            TreeNode temp = s.pop();
+            if(temp.data==val){
+                printNode(temp, parent);
+                break;
+            }
+            if(temp.right!=null){
+                s.push(temp.right);
+                parent.put(temp.right, temp);
+            }
+            if(temp.left!=null){
+                s.push(temp.left);
+                parent.put(temp.left, temp);
+            }
+        }
+    }
 }

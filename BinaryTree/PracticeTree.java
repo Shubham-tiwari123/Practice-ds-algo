@@ -12,6 +12,21 @@ class TreeNode{
     }
 }
 
+class SiblingTree{
+    int data;
+    SiblingTree left;
+    SiblingTree right;
+    SiblingTree nextSibling;
+
+    public SiblingTree(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+        this.nextSibling = null;
+    }
+    
+}
+
 public class PracticeTree {
 
     TreeNode createBinaryTree(){
@@ -24,7 +39,7 @@ public class PracticeTree {
         return root;
     }
     TreeNode createSecBinaryTree(){
-        TreeNode root2 = new TreeNode(10);
+        TreeNode root2 = new TreeNode(1);
         root2.left = new TreeNode(2);
         root2.right = new TreeNode(3);
         root2.left.left=new TreeNode(4);
@@ -34,10 +49,20 @@ public class PracticeTree {
         return root2;
     }
     
+    SiblingTree createSiblingTree(){
+        SiblingTree root = new SiblingTree(1);
+        root.left = new SiblingTree(2);
+        root.right = new SiblingTree(3);
+        root.left.left=new SiblingTree(4);
+        root.left.right=new SiblingTree(5);
+        root.right.left=new SiblingTree(6);
+        return root;
+    }
+    
     public static void main(String[] args) {
         PracticeTree pt = new PracticeTree();
         BinaryTree bt = new BinaryTree();
-        TreeNode head = pt.createBinaryTree();
+        /*TreeNode head = pt.createBinaryTree();
         
         System.out.print("\nPreOrder:-");
         bt.preOrder(head);
@@ -65,9 +90,23 @@ public class PracticeTree {
         
         bt.checkTwoTreeStructuralIdentical(root1, root2);
         bt.levelThatHasMaxSum(root2);
+        System.out.print("\nRoot to leaf nodes:-");
         bt.printRootToLeaf(root1);
+        System.out.print("\nmirror tree:-");
+        bt.mirrorTree(root1);
+        bt.levelOrder(root1);
         
+        TreeNode root3 = pt.createBinaryTree();
+        bt.checkMirror(root1, root2);
+        System.out.print("\nAncestors:-");
+        bt.printAccestor(root3, 1);
         
+        BinaryTreeNew btn = new BinaryTreeNew();
+        btn.traverseTreeZigZag(root3);*/
+        
+        BinaryTreeNew btn = new BinaryTreeNew();
+        SiblingTree st = pt.createSiblingTree();
+        btn.connectSiblings(st);
+        //btn.taverseSibling(st);
     }
-    
 }
