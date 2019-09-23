@@ -24,7 +24,6 @@ class SiblingTree{
         this.right = null;
         this.nextSibling = null;
     }
-    
 }
 
 public class PracticeTree {
@@ -59,7 +58,7 @@ public class PracticeTree {
         return root;
     }
     
-    public static void main(String[] args) {
+    void binaryTreeQues(){
         PracticeTree pt = new PracticeTree();
         BinaryTree bt = new BinaryTree();
         /*TreeNode head = pt.createBinaryTree();
@@ -108,5 +107,19 @@ public class PracticeTree {
         SiblingTree st = pt.createSiblingTree();
         btn.connectSiblings(st);
         //btn.taverseSibling(st);
+    }
+    
+    public static void main(String[] args) {
+        PracticeTree pt = new PracticeTree();
+        //pt.binaryTreeQues();
+        BinarySearchTree bst = new BinarySearchTree();
+        BinarySearch root = bst.createBST();
+        bst.levelOrderBST(root);
+        //bst.insertNodeBST(root, 79);
+        //bst.searchData(root, 10);
+        //bst.findMax(root);
+        bst.deleteNode(root, 4);
+        System.out.print("\nBST after deletion:-");
+        bst.levelOrderBST(root);
     }
 }
