@@ -211,6 +211,48 @@ public class DPquestion {
         System.out.println("\nMin coins required to get "+total+" is:"+mat[xLen-1][yLen-1]);
     }
     
+    void longestIncreasingSub(int value[]){
+        int valueLen = value.length;
+        int arr[] = new int[valueLen];
+        for(int i=0;i<valueLen;i++)
+            arr[i]=1;
+        for(int i=0;i<valueLen;i++){
+            for(int j=0;j<i;j++){
+                if(value[i]>value[j] && arr[i]<arr[j]+1)
+                    arr[i]=arr[i]+1;
+            }
+        }
+        int max=Integer.MIN_VALUE;
+        for(int i=0;i<valueLen;i++){
+            if(arr[i]>max)
+                max=arr[i];
+        }
+        System.out.println("Max len ="+max);
+    }
+    
+    void subsetSum(int value[],int totalSum){
+        int row = value.length+1;
+        int col = totalSum+1;
+        boolean mat[][] = new boolean[row][col];
+        
+        for(int i=0;i<col;i++)
+            mat[0][i]=false;
+        for(int i=1;i<row;i++)
+            mat[i][0]=true;
+        int k=0;
+        for(int i=1;i<row;i++){
+            for(int j=1;j<col;j++){
+                if(value[k]>j)
+                    mat[i][j]=mat[i-1][j];
+                else{
+                    int diff = Math.abs(value[k]-j);
+                    mat[i][j]=mat[i-1][diff];
+                }
+            }
+        }
+        System.out.print("Set present? "+mat[row-1][col-1]);
+    }
+    
     void matrixMultiplication(){
         //https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/
     }
