@@ -111,15 +111,17 @@ public class PracticeAlgo {
         int mat[]={2,3,5,10};
         dp.coinChange(mat, 15);
         int mat1[]={5,7,8,9};
-        dp.minCoinRequired(mat1, 49);*/
-        PracticeAlgo pc = new PracticeAlgo();
-        List<Integer> p = new ArrayList<>();
-        p.add(2);
-        p.add(1);
-        p.add(4);
-        p.add(3);
-        pc.solve(p);
+        dp.minCoinRequired(mat1, 49);
+        int matArr[] = {10, 22, 9, 33, 21, 50, 41, 60};
+        dp.longestIncreasingSub(matArr);
+        int set[] = {3, 34, 4, 12, 5, 2}; 
+        dp.subsetSum(set, 9);*/
         
+        GraphQuestion gq = new GraphQuestion();
+        gq.createUndirectedGraphAdjList();
+        gq.graphDFS(0);
+        gq.graphBFS(0);
+        gq.checkPath(1, 5);
     }
     
 }
