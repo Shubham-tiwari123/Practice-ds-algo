@@ -49,7 +49,7 @@ public class GraphQuestion {
     public void createUndirectedGraphAdjList(){
         int vertex = sc.nextInt();
         int edges = sc.nextInt();
-        Graph g = new Graph(vertex);
+        Graph g = new Graph(vertex+1);
         for(int i=0;i<edges;i++){
             int src = sc.nextInt();
             int dest = sc.nextInt();
@@ -57,7 +57,7 @@ public class GraphQuestion {
             Graph.adjList[dest].add(src);
         }
         System.out.print("\nPrinting graph\n");
-        for(int i=0;i<vertex;i++){
+        for(int i=0;i<Graph.v;i++){
             LinkedList<Integer> temp = Graph.adjList[i];
             System.out.print("\n"+i+":-> ");
             for(int j=0;j<temp.size();j++)
@@ -138,5 +138,101 @@ public class GraphQuestion {
             System.out.println("true");
         else
             System.out.println("false");
+    }
+    
+    void findNeighbour(int src,int dis){
+        boolean visited[] = new boolean[Graph.v];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(src);
+        int data;
+        while(--dis>0){
+            int temp = q.poll();
+            visited[temp]=true;
+            Iterator<Integer> it = Graph.adjList[temp].listIterator();
+            while(it.hasNext()){
+                data = it.next();
+                if(visited[data]==false)
+                    q.add(data);
+            }
+            System.out.println("q:-"+q);
+        }
+        
+        System.out.println("visted");
+        for(int i=0;i<visited.length;i++)
+            System.out.println(i+":-> "+visited[i]);
+        int count=0;
+        Queue<Integer> q1 = q;
+        while(!q.isEmpty()){
+            int value = q.poll();
+            if(visited[value]==false){
+                visited[value]=true;
+                Iterator<Integer> it = Graph.adjList[value].listIterator();
+                while(it.hasNext()){
+                    data = it.next();
+                    if(visited[data]==false && !q1.contains(data)){
+                        System.out.println("data:-"+data);
+                        visited[data]=true;
+                        count++;
+                    }
+                    else
+                        visited[data]=true;
+                }
+            }
+            
+        }
+        System.out.println("count:-"+count);
+    }
+   
+    void findLevel(){
+        boolean visited[] = new boolean[Graph.v];
+        int level[] = new int[Graph.v];
+        Queue<Integer> q = new LinkedList<>();
+        Queue<Integer> q1 = new LinkedList<>();
+        Iterator<Integer> it1 = Graph.adjList[0].listIterator();
+        int levelCount=0;
+        if(it1.hasNext()){
+            q.add(0);
+        }
+        else{
+            q.add(1);
+        }
+        
+        int data=0;
+        while(!q.isEmpty() || !q1.isEmpty()){
+            while(!q.isEmpty()){
+                int val = q.poll();
+                level[val] = levelCount;
+                if(visited[val]==false){
+                    visited[val] = true;
+                }
+                Iterator<Integer> it = Graph.adjList[val].listIterator();
+                while(it.hasNext()){
+                    data = it.next();
+                    if(!visited[data]){
+                        q1.add(data);
+                    }
+                }
+            }
+            levelCount++;
+            while(!q1.isEmpty()){
+                int val = q1.poll();
+                level[val] = levelCount;
+                if(visited[val]==false){
+                    visited[val] = true;
+                }
+                Iterator<Integer> it = Graph.adjList[val].listIterator();
+                while(it.hasNext()){
+                    data = it.next();
+                    if(!visited[data]){
+                        q.add(data);
+                    }
+                }
+            }
+            levelCount++;
+        }
+        System.out.print("\nLevel:-");
+        for(int i=0;i<Graph.v;i++){
+            System.out.println(i+":->"+level[i]);
+        }
     }
 }
