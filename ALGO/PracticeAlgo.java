@@ -119,9 +119,11 @@ public class PracticeAlgo {
         
         GraphQuestion gq = new GraphQuestion();
         gq.createUndirectedGraphAdjList();
-        gq.graphDFS(0);
-        gq.graphBFS(0);
-        gq.checkPath(1, 5);
+        //gq.graphDFS(1);
+        //gq.graphBFS(1);
+        //gq.checkPath(1, 5);
+        System.out.println("\nnei");
+        //gq.findLevel();
     }
     
 }
