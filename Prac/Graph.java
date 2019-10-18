@@ -1,18 +1,35 @@
 package datastructures;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Stack;
-class WeightedGraph{
+class WeightedGraph implements Comparator<WeightedGraph>{
     int dest;
     int weight;
     public WeightedGraph(int dest, int weight) {
         this.dest = dest;
         this.weight = weight;
     }
+    
+    @Override
+    public int compare(WeightedGraph o1, WeightedGraph o2) {
+        if(o1.weight< o2.weight)
+            return -1;
+        if(o1.weight> o2.weight)
+            return 1;
+        return 0;
+    }
+
+    public WeightedGraph() {
+    }
+    
     
 }
 public class Graph {
@@ -24,6 +41,8 @@ public class Graph {
     private Stack<Integer> stack;
     private Queue<Integer> queue;
     private Iterator<Integer> itr;
+    private static LinkedList<WeightedGraph> adjlist[];
+    private Iterator<WeightedGraph> itr1;
             
     public Graph() {
         sc = new Scanner(System.in);
@@ -281,7 +300,7 @@ public class Graph {
     }
     
     void createWightedGraph(int vertex){
-        LinkedList<WeightedGraph> adjlist[] = new LinkedList[vertex];
+        adjlist = new LinkedList[vertex];
         for(int i=0;i<vertex;i++){
             adjlist[i] = new LinkedList<>();
         }
@@ -305,5 +324,96 @@ public class Graph {
             }
             System.out.print("\n");
         }
+    }
+    
+    void dijkstraShortestPath(int src,int vertex){
+        PriorityQueue<WeightedGraph> pq = new PriorityQueue<>(vertex,new WeightedGraph());
+        Set<Integer>set = new HashSet<>();
+        int dist[] = new int[vertex];
+        for(int i=0;i<vertex;i++)
+            dist[i]=Integer.MAX_VALUE;
+        dist[src]=0;
+        pq.add(new WeightedGraph(src, 0));
+        
+        while(set.size()!=vertex){
+            int val = pq.remove().dest;
+            set.add(val);
+            itr1 =  adjlist[val].iterator();
+            while(itr1.hasNext()){
+                WeightedGraph e = itr1.next();
+                if(!set.contains(e.dest)){
+                    int newDist = dist[val]+e.weight;
+                    if(dist[e.dest]>newDist)
+                        dist[e.dest] = newDist;
+                    pq.add(new WeightedGraph(e.dest, dist[e.dest]));
+                }
+            }
+        }
+        
+        for (int i = 0; i < dist.length; i++) 
+            System.out.println(src + " to " + i + " is "
+                               + dist[i]); 
+    }
+    
+    void createUndirWightedGraph(int vertex){
+        adjlist = new LinkedList[vertex];
+        for(int i=0;i<vertex;i++){
+            adjlist[i] = new LinkedList<>();
+        }
+        int edges= sc.nextInt();
+        for(int i=0;i<edges;i++){
+            int point1 = sc.nextInt();
+            int point2 = sc.nextInt();
+            int weight = sc.nextInt();
+            WeightedGraph edge1 = new WeightedGraph(point2, weight);
+            WeightedGraph edge2 = new WeightedGraph(point1, weight);
+            adjlist[point1].add(edge1);
+            adjlist[point2].add(edge2);
+        }
+        System.out.print("\nPrint weighted graph:\n");
+        for(int i=0;i<vertex;i++){
+            int count=adjlist[i].size();
+            int j=0;
+            System.out.print("s("+i+"):-->");
+            while(count-->0){
+                WeightedGraph e = adjlist[i].get(j);
+                System.out.print("w("+e.weight+")--d("+e.dest+"), ");
+                j++;
+            }
+            System.out.print("\n");
+        }
+    }
+    
+    void prismAlgo(int src,int vertex){
+        PriorityQueue<WeightedGraph> pq = new PriorityQueue<>(vertex,new WeightedGraph());
+        Set<Integer>set = new HashSet<>();
+        int dist[] = new int[vertex];
+        int path[] = new int[vertex];
+        for(int i=0;i<vertex;i++)
+            dist[i]=Integer.MAX_VALUE;
+        dist[src]=0;
+        pq.add(new WeightedGraph(src, 0));
+        
+        while(set.size()!=vertex){
+            int val = pq.remove().dest;
+            set.add(val);
+            itr1 =  adjlist[val].iterator();
+            while(itr1.hasNext()){
+                WeightedGraph e = itr1.next();
+                System.out.println("set:-"+set);
+                if(!set.contains(e.dest)){
+                    int newDist = dist[val]+e.weight;
+                    if(dist[e.dest]>newDist){
+                        dist[e.dest] = e.weight;}
+                    path[e.dest]=e.dest;
+                    pq.add(new WeightedGraph(e.dest, dist[e.dest]));
+                }
+            }
+        }
+        System.out.print("\nPrinting path\n");
+        for (int i = 0; i < dist.length; i++) 
+            System.out.println(path[i]+" ");
+        
+        
     }
 }
