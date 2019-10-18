@@ -2,12 +2,14 @@
 
 ## Topics implemented
 
-## BinaryTree questions
+**BinaryTree questions**
 
-## Binary Search
+**Binary Search**
 
-## Dynamic Algo
+**Dynamic Algo**
 
-## Graph questions 
+**Graph questions** 
 
-## Parallel execution of algo using Thread in Java
+**Parallel execution of algo using Thread in Java**
+
+**Priority Queue(Max Heap/Min Heap)**
